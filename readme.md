@@ -22,6 +22,7 @@ This tool is intended only for educational purposes and testing in your own lab 
 - Stateless web shell
 - Interactive terminal view
 - Arbitrary command execution
+- Command history
 
 ---
 
