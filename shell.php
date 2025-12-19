@@ -14,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<title>web_shell</title>
 	<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='50%25' y='50%25' font-family='monospace' font-size='48' text-anchor='middle' dominant-baseline='central' fill='%230F0'%3E%24%3C/text%3E%3C/svg%3E">
 	<style>
-		body {
+		body, input {
 			background-color: #000;
 			color: #0F0;
-			font-family: Arial, Helvetica, Verdana, sans-serif;
+			font-family: monospace;
 		}
 		p {
 			margin: 0;
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		}
 
 		.input-wrapper span {
-			margin-right: 4px; 
+			margin-right: 4px;
 		}
 		.input-wrapper input {
 			flex: 1;             
