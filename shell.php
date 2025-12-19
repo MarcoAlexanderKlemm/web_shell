@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>web_shell</title>
+	<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23000'/%3E%3Ctext x='50%25' y='50%25' font-family='monospace' font-size='48' text-anchor='middle' dominant-baseline='central' fill='%230F0'%3E%24%3C/text%3E%3C/svg%3E">
 	<style>
 		body {
 			background-color: #000;
@@ -42,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			box-shadow: none;
 		}
 		#output p {
-		    white-space: pre-wrap;
+			white-space: pre-wrap;
 		}
 	</style>
 </head>
@@ -88,26 +89,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					}
 				}
 				if (e.key === "ArrowUp") {
-				    e.preventDefault();
-				    historyIndex--; 
-				    if (historyIndex < 0) {
-					    historyIndex = commands.length - 1;
+					e.preventDefault();
+					historyIndex--; 
+					if (historyIndex < 0) {
+						historyIndex = commands.length - 1;
 					}
-				    const command = commands[historyIndex];
-				    if (command) {
-				        setInputCommand(command);
-				    }
+					const command = commands[historyIndex];
+					if (command) {
+						setInputCommand(command);
+					}
 				}
 				if (e.key === "ArrowDown") {
-				    e.preventDefault(); 
-				    historyIndex++;
-				    if (historyIndex >= commands.length) {
-					    historyIndex = 0;
+					e.preventDefault(); 
+					historyIndex++;
+					if (historyIndex >= commands.length) {
+						historyIndex = 0;
 					}
-				    const command = commands[historyIndex];
-				    if (command) {
-				        setInputCommand(command);
-				    }
+					const command = commands[historyIndex];
+					if (command) {
+						setInputCommand(command);
+					}
 				}
 			});
 		})();
