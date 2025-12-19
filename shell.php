@@ -53,62 +53,64 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<input type="text" autofocus>
 	</div>
 	<script>
-		let commands = [];
-		let historyIndex = -1;
-		document.addEventListener('keyup', function (e) {
-			if (e.key === 'Enter') {
+		(() => {
+			let setInputCommand = (command) => {
 				const input = document.querySelector('input');
-				const value = input.value;
-				input.value = '';
-				if(value){
-					commands.push(value);
-					const xhr = new XMLHttpRequest();
-					xhr.open('POST', window.location.href);
-					xhr.setRequestHeader("Content-Type", "application/json");
-					xhr.onload = function() {
-						if (xhr.status === 200) {
-							const response = JSON.parse(xhr.responseText);
-							if(response !== null && response !== ''){
-								const output = document.getElementById('output');
-								const p = document.createElement('p');
-								p.textContent = '$ ' + value + '\n' + response;
-								output.appendChild(p); 
+				input.value = command;
+				input.focus();
+				input.setSelectionRange(input.value.length, input.value.length);
+			}
+			let commands = [];
+			let historyIndex = -1;
+			document.addEventListener('keyup', function (e) {
+				if (e.key === 'Enter') {
+					const input = document.querySelector('input');
+					const value = input.value;
+					input.value = '';
+					if(value){
+						commands.push(value);
+						const xhr = new XMLHttpRequest();
+						xhr.open('POST', window.location.href);
+						xhr.setRequestHeader("Content-Type", "application/json");
+						xhr.onload = function() {
+							if (xhr.status === 200) {
+								const response = JSON.parse(xhr.responseText);
+								if(response !== null && response !== ''){
+									const output = document.getElementById('output');
+									const p = document.createElement('p');
+									p.textContent = '$ ' + value + '\n' + response;
+									output.appendChild(p); 
+								}
+								window.scrollTo(0, document.body.scrollHeight);
 							}
-							window.scrollTo(0, document.body.scrollHeight);
-						}
-					};
-					xhr.send(JSON.stringify(value));
+						};
+						xhr.send(JSON.stringify(value));
+					}
 				}
-			}
-			if (e.key === "ArrowUp") {
-			    e.preventDefault();
-			    historyIndex--; 
-			    if (historyIndex < 0) {
-				    historyIndex = commands.length - 1;
+				if (e.key === "ArrowUp") {
+				    e.preventDefault();
+				    historyIndex--; 
+				    if (historyIndex < 0) {
+					    historyIndex = commands.length - 1;
+					}
+				    const command = commands[historyIndex];
+				    if (command) {
+				        setInputCommand(command);
+				    }
 				}
-			    const command = commands[historyIndex];
-			    if (command) {
-			        const input = document.querySelector('input');
-			        input.value = command;
-			        input.focus();
-			        input.setSelectionRange(input.value.length, input.value.length);
-			    }
-			}
-			if (e.key === "ArrowDown") {
-			    e.preventDefault(); 
-			    historyIndex++;
-			    if (historyIndex >= commands.length) {
-				    historyIndex = 0;
+				if (e.key === "ArrowDown") {
+				    e.preventDefault(); 
+				    historyIndex++;
+				    if (historyIndex >= commands.length) {
+					    historyIndex = 0;
+					}
+				    const command = commands[historyIndex];
+				    if (command) {
+				        setInputCommand(command);
+				    }
 				}
-			    const command = commands[historyIndex];
-			    if (command) {
-			        const input = document.querySelector('input');
-			        input.value = command;
-			        input.focus();
-			        input.setSelectionRange(input.value.length, input.value.length);
-			    }
-			}
-		});
+			});
+		})();
 	</script>
 </body>
 </html>
